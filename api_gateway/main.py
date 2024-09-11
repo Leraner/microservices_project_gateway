@@ -1,5 +1,5 @@
 import fastapi
-from api import UserRouter
+from api import UserRouter, PostRouter
 from exceptions import ExceptionHandlers
 
 app = fastapi.FastAPI()
@@ -7,6 +7,7 @@ app = fastapi.FastAPI()
 
 routers = [
     UserRouter,
+    PostRouter,
 ]
 
 

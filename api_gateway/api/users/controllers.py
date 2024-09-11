@@ -1,5 +1,6 @@
 from grpc_loader import ClientGRPCLoader, ClientInterface
 from settings import microservices
+from uuid import UUID
 
 
 class UserService(metaclass=ClientGRPCLoader):
@@ -21,8 +22,15 @@ class UserService(metaclass=ClientGRPCLoader):
         )
 
     @ClientGRPCLoader.annotate
-    async def delete_user(self, user_id: str, interface: ClientInterface):
+    async def get_user_by_id(self, user_id: UUID, interface: ClientInterface):
+        return await interface.client.GetUserById(
+            interface.protos.GetUserByIdRequest(id=str(user_id)),
+            timeout=5,
+        )
+
+    @ClientGRPCLoader.annotate
+    async def delete_user(self, user_id: UUID, interface: ClientInterface):
         return await interface.client.DeleteUser(
-            interface.protos.DeleteUserRequest(id=user_id),
+            interface.protos.DeleteUserRequest(id=str(user_id)),
             timeout=5,
         )

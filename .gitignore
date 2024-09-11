@@ -3,3 +3,8 @@ venv/
 services/*/
 .idea
 .DS_Store
+
+# microservices
+
+user_microservice/
+post_microservice/

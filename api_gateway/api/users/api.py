@@ -2,7 +2,7 @@ from google.protobuf.json_format import MessageToDict
 from starlette.responses import JSONResponse
 from .controllers import UserService
 from ..base import BaseRouter
-
+from uuid import UUID
 
 class UserRouter(BaseRouter):
     prefix = "/user"
@@ -20,6 +20,12 @@ class UserRouter(BaseRouter):
         return JSONResponse(MessageToDict(users))
 
     @classmethod
-    async def delete_user(cls, user_id: str):
+    async def get_user_by_id(cls, user_id: UUID):
+        user = await cls.service.get_user_by_id(user_id)
+        return JSONResponse(MessageToDict(user))
+
+
+    @classmethod
+    async def delete_user(cls, user_id: UUID):
         user = await cls.service.delete_user(user_id=user_id)
         return JSONResponse(MessageToDict(user))

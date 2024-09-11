@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+
+import "google/protobuf/timestamp.proto";
+
+import "protos/user_protos.proto";
+
+package posts;
+
+
+service Posts {
+    rpc GetPosts (GetPostsRequest) returns (GetPostsResponse);
+    rpc GetPostById (GetPostByIdRequest) returns (GetPostByIdResponse);
+    rpc CreatePost (CreatePostRequest) returns (CreatePostResponse);
+    rpc DeletePost (DeletePostRequest) returns (DeletePostResponse);
+}
+
+
+message Post {
+    string id = 1;
+    string title = 2;
+    users.User user = 3;
+}
+
+
+message GetPostsRequest {}
+
+message GetPostsResponse {
+    repeated Post posts = 1;
+}
+
+message GetPostByIdRequest {
+    string id = 1;
+}
+
+message GetPostByIdResponse {
+    Post post = 1;
+}
+
+message CreatePostRequest {
+    string author_id = 1;
+    string title = 2;
+}
+
+message CreatePostResponse {
+    Post post = 1;
+}
+
+message DeletePostRequest {
+    string id = 1;
+}
+
+message DeletePostResponse {
+    Post post = 1;
+}
+

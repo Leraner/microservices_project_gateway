@@ -18,7 +18,7 @@ class PostRouter(BaseRouter):
     @classmethod
     async def get_post_by_id(cls, post_id: UUID):
         post = await cls.service.get_post_by_id(post_id)
-        return MessageToDict(post)
+        return JSONResponse(MessageToDict(post))
 
     @classmethod
     async def post_create_post(cls, author_id: UUID, title: str):

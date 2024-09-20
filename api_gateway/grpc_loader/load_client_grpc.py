@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Callable
 
 import grpc
 
@@ -28,7 +28,7 @@ class ClientGRPCLoader(type):
         return super().__new__(cls, name, bases, dct)
 
     @staticmethod
-    def annotate(func):
+    def annotate(func) -> Callable:
         async def inner(*args, **kwargs):
             return await func(*args, **kwargs)
 
